@@ -14,6 +14,3 @@ func _init(multiplayer_api: MultiplayerAPI):
 	multiplayer_api.server_disconnected.connect(func():
 		disconnected.emit()
 	)
-
-func do_action(callable: Callable, args: Array = []) -> void:
-	MagNet._client_do_action(callable, args)
