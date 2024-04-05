@@ -1,17 +1,19 @@
-class_name MagNetClient extends MagNetPeer
+class_name MagNetClient extends Object
 
 signal connected
 signal connection_failed
 signal disconnected
 
 func _init(multiplayer_api: MultiplayerAPI):
-	super._init(multiplayer_api)
-	_multiplayer_api.connected_to_server.connect(func():
+	multiplayer_api.connected_to_server.connect(func():
 		connected.emit()
 	)
-	_multiplayer_api.connection_failed.connect(func():
+	multiplayer_api.connection_failed.connect(func():
 		connection_failed.emit()
 	)
-	_multiplayer_api.server_disconnected.connect(func():
+	multiplayer_api.server_disconnected.connect(func():
 		disconnected.emit()
 	)
+
+func do_action(callable: Callable, args: Array = []) -> void:
+	MagNet._client_do_action(callable, args)
