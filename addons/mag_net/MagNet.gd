@@ -20,6 +20,12 @@ class ActionData:
 	var user_args: Array:
 		set(v): dictionary.user_args = v
 		get: return dictionary.get("user_args", [])
+	var client_send_s: float:
+		set(v): dictionary.client_send_s = v
+		get: return dictionary.get("client_send_s")
+	var server_send_s: float:
+		set(v): dictionary.server_send_s = v
+		get: return dictionary.get("server_send_s")
 	func _init(dictionary: Dictionary = {}):
 		self.dictionary = dictionary
 
@@ -32,6 +38,11 @@ var peer: MagNetPeer = null:
 	set(v):
 		peer = v
 		peer_created.emit()
+var _last_action_ms := Time.get_ticks_msec()
+var ping: int = 0
+
+func get_action_sender_id() -> int:
+	return multiplayer.get_remote_sender_id()
 
 func _pack_action_args(retries: int, server_success, args: Array) -> Array:
 	var action_args = [retries, server_success]
@@ -54,6 +65,7 @@ func forward_action(callable: Callable, action_data_dict: Dictionary, callback: 
 	
 	if peer.is_server():
 		assert(server_success is bool)
+		action_data.server_send_s = Time.get_unix_time_from_system()
 		if server_success:
 			action_data.server_response = ServerResponse.SUCCESS
 			callable.rpc(action_data.dictionary)
@@ -64,6 +76,12 @@ func forward_action(callable: Callable, action_data_dict: Dictionary, callback: 
 				action_data.dictionary
 			)
 			
+	if peer.is_client():
+		if action_data.server_response == ServerResponse.NONE:
+			action_data.client_send_s = Time.get_unix_time_from_system()
+		else:
+			ping = (action_data.server_send_s - action_data.client_send_s) * 1000
+	
 	var server_response = action_data.server_response
 	action_data.server_response = ServerResponse.NONE
 	if server_response == ServerResponse.FAIL:
@@ -77,7 +95,7 @@ func do_action(callable: Callable, user_args: Array = [], action_data := ActionD
 	if peer.is_server():
 		callable.rpc(action_data.dictionary)
 	else: #client
-		await callable.call(action_data.dictionary) # simulate locally
+		callable.call(action_data.dictionary) # simulate locally
 		callable.rpc_id(1, action_data.dictionary) # call server
 
 func create_server(port: int = DEFAULT_PORT, max_clients: int = DEFAULT_MAX_CLIENTS) -> void:

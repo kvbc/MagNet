@@ -1,11 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dg6lth5icjl3b"]
+[gd_scene load_steps=4 format=3 uid="uid://dg6lth5icjl3b"]
 
 [ext_resource type="Script" path="res://scenes/player_service.gd" id="1_brv2q"]
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_dni67"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_13xmk"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_4ntxy"]
 
 [node name="world" type="Node2D"]
 script = ExtResource("1_dni67")
@@ -33,5 +31,5 @@ horizontal_alignment = 1
 [node name="ping_label" type="Label" parent="UI/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-label_settings = SubResource("LabelSettings_4ntxy")
+label_settings = SubResource("LabelSettings_13xmk")
 horizontal_alignment = 1

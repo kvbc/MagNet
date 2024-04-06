@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cippiqenh48gp"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_f7jgh"]
+[ext_resource type="Texture2D" uid="uid://buukd2mg6qc1l" path="res://icon.svg" id="1_q1kfa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5yiml"]
+size = Vector2(36, 36)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_f7jgh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.28125, 0.28125)
+texture = ExtResource("1_q1kfa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5yiml")
+
+[node name="id_label" type="Label" parent="."]
+offset_left = -39.0
+offset_top = -43.0
+offset_right = 40.0
+offset_bottom = -20.0
+text = "ID"
+horizontal_alignment = 1
