@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dg6lth5icjl3b"]
+[gd_scene load_steps=6 format=3 uid="uid://dg6lth5icjl3b"]
 
 [ext_resource type="Script" path="res://scenes/player_service.gd" id="1_brv2q"]
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_dni67"]
+[ext_resource type="Script" path="res://scenes/block_service.gd" id="3_gu6u8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_13xmk"]
 
@@ -12,6 +13,9 @@ script = ExtResource("1_dni67")
 
 [node name="player_service" type="Node2D" parent="."]
 script = ExtResource("1_brv2q")
+
+[node name="block_service" type="Node2D" parent="."]
+script = ExtResource("3_gu6u8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

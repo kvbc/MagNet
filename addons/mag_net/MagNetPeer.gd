@@ -28,7 +28,7 @@ func is_client() -> bool:
 # then_func: (server: MagNetServer) -> Variant
 func if_server(then_func: Callable) -> Variant:
 	if is_server():
-		return then_func.call(_server)
+		return await then_func.call(_server)
 	return null
 
 # then_func: (client: MagNetClient) -> void

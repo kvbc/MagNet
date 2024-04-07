@@ -31,7 +31,7 @@ func action_move(args):
 					target_gpos = server_gpos
 		)
 		
-		return MagNet.peer.if_server(func(server: MagNetServer) -> bool:
+		return await MagNet.peer.if_server(func(server: MagNetServer) -> bool:
 			if MagNet.get_action_sender_id() != peer_id:
 				return false
 			

@@ -61,7 +61,7 @@ func forward_action(callable: Callable, action_data_dict: Dictionary, callback: 
 	var action_data = ActionData.new(action_data_dict)
 	var callback_args = [action_data]
 	callback_args.append_array(action_data.user_args)
-	var server_success = callback.bindv(callback_args).call() # callv doesnt work for some reason?
+	var server_success = await callback.bindv(callback_args).call() # callv doesnt work for some reason?
 	
 	if peer.is_server():
 		assert(server_success is bool)

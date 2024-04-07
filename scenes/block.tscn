@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://owf76ialske3"]
+
+[ext_resource type="Script" path="res://scenes/block.gd" id="1_okpba"]
+[ext_resource type="Texture2D" uid="uid://buukd2mg6qc1l" path="res://icon.svg" id="1_ta0qa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_67cs0"]
+size = Vector2(78, 78)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_irrq2"]
+radius = 41.1096
+
+[node name="Block" type="StaticBody2D"]
+script = ExtResource("1_okpba")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.435294, 0.435294, 0.435294, 1)
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("1_ta0qa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_67cs0")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_irrq2")
